@@ -15,12 +15,14 @@ app.get('/', (req, res) => {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
+// post bc it's a file upload
+// upload.single("upfile") for multer. "upfile" is name attr on html file input
 app.post("/api/fileanalyse", upload.single("upfile"), (req, res, next) => {
   // req.file is the `uploaded` file
   // req.body will hold the text fields, if there were any
   const fileData = {
-    name: req.file,
-    type: req.file.type,
+    name: req.file.originalname,
+    type: req.file.mimetype,
     size: req.file.size
   };
   
